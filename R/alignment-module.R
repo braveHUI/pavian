@@ -65,25 +65,22 @@ To generate a BAM file, download a genome of interest, and align to it with an a
         downloadLink(ns("pdf_brush"), "PDF")))
       ),
       tabPanel(
-        title = "Use data on server",
-        id = "server_dir",
-        " Select a directory in the file browser and press 'Read selected directories' to load it into Pavian.",
-        " You may also use wildcards to directly upload specified paths.",
+        title = "Download genomes for alignment",
+
+        HTML(
+          "Gather and display the content of the assembly_summary.txt from the selected domain from <a target='blank' href='ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq'>ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq</a>. An active internet connection is required, and currently no files are cached."),
         br(),
-        div(id="server_data_dir_div",
-            shinyWidgets::searchInput(ns("search_data_dir"),
-                                      label = "Specify directory on machine running Pavian",
-                                      value = getOption("pavian.server_dir", ""),
-                                      btnReset = icon("level-up", lib="glyphicon"),
-                                      resetValue = NULL,
-                                      width = "100%",
-                                      btnSearch = icon("server"))),
-        div(style="max-height:400px; overflow-y: scroll",
-            shinyFileTree::shinyFileTreeOutput(ns('file_tree'))
-        ),
-        shinyjs::hidden(actionButton(ns("btn_read_tree_dirs"), "Read selected directories")),
-        uiOutput(ns('rud'))
-      ),
+        br(),
+        div(class="row-fluid",
+            div(class="col-sm-6 col-xs-12",
+                shiny::selectizeInput(ns("cbo_assemblies"), choices = assembly_resources, selected = "RefSeq bacteria", label = NULL, width="100%")),
+            div(class="col-sm-6 col-xs-12",
+                shiny::actionButton(ns("btn_load_assembly_info"), "Update assembly information",width="100%"))),
+        br(),
+        br(),
+        DT::dataTableOutput(ns("dt_assembly_info")),
+        htmlOutput(ns("dl_genome"))
+      )
     )
   )
 }
