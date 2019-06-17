@@ -84,7 +84,6 @@ To generate a BAM file, download a genome of interest, and align to it with an a
         shinyjs::hidden(actionButton(ns("btn_read_tree_dirs"), "Read selected directories")),
         uiOutput(ns('rud'))
       ),
-      
     )
   )
 }
