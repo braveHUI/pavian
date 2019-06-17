@@ -65,6 +65,26 @@ To generate a BAM file, download a genome of interest, and align to it with an a
         downloadLink(ns("pdf_brush"), "PDF")))
       ),
       tabPanel(
+        title = "Use data on server",
+        id = "server_dir",
+        " Select a directory in the file browser and press 'Read selected directories' to load it into Pavian.",
+        " You may also use wildcards to directly upload specified paths.",
+        br(),
+        div(id="server_data_dir_div",
+            shinyWidgets::searchInput(ns("search_data_dir"),
+                                      label = "Specify directory on machine running Pavian",
+                                      value = getOption("pavian.server_dir", ""),
+                                      btnReset = icon("level-up", lib="glyphicon"),
+                                      resetValue = NULL,
+                                      width = "100%",
+                                      btnSearch = icon("server"))),
+        div(style="max-height:400px; overflow-y: scroll",
+            shinyFileTree::shinyFileTreeOutput(ns('file_tree'))
+        ),
+        shinyjs::hidden(actionButton(ns("btn_read_tree_dirs"), "Read selected directories")),
+        uiOutput(ns('rud'))
+      ),
+      tabPanel(
         title = "Download genomes for alignment",
 
         HTML(
