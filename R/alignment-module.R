@@ -45,7 +45,7 @@ To generate a BAM file, download a genome of interest, and align to it with an a
     ),
     tabBox(width = 12,
       tabPanel(
-        title = "View alignment22222222",
+        title = "View alignment",
         uiOutput(ns("warn_Rsamtools"), width = 12),
         shinyjs::hidden(div(id=ns("align_view_rsamtools"),
         fluidRow(
